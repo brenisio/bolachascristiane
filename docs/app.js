@@ -165,9 +165,9 @@ $("#form").addEventListener("submit", e => {
 /* ---------- início ---------- */
 $("#zapRota").href = zap("Oi, Cristiane! Você passa pelo meu bairro?");
 $("#zapRodape").href = zap();
-$("#zapRodape").textContent = `WhatsApp (48) ${WHATSAPP.slice(4, 8)}-${WHATSAPP.slice(8)}`;
+$("#zapRodape span").textContent = `(48) ${WHATSAPP.slice(4, 8)}-${WHATSAPP.slice(8)}`;
 $("#insta").href = `https://www.instagram.com/${INSTAGRAM}/`;
-$("#insta").textContent = `@${INSTAGRAM}`;
+$("#insta span").textContent = `@${INSTAGRAM}`;
 $("#endereco").textContent = ENDERECO;
 $("[data-preco-min]").textContent = brl(Math.min(...SABORES.map(s => s.preco)));
 $("[data-n-sabores]").textContent = SABORES.length;

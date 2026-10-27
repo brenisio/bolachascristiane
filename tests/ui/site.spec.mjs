@@ -191,6 +191,9 @@ test("links de contato apontam pro WhatsApp e Instagram dela", async ({ page }) 
   await expect(page.locator("#zapRodape")).toHaveAttribute("href", `https://wa.me/${WHATSAPP}`);
   await expect(page.locator("#zapRota")).toHaveAttribute("href", new RegExp(`^https://wa.me/${WHATSAPP}\\?text=`));
   await expect(page.locator("#insta")).toHaveAttribute("href", "https://www.instagram.com/bolachascristiane/");
+  await expect(page.locator("#zapRodape use")).toHaveAttribute("href", "#i-zap");
+  await expect(page.locator("#insta use")).toHaveAttribute("href", "#i-insta");
+  await expect(page.locator("#zapRodape")).toHaveText(/^\(48\) \d{4,5}-\d{4}$/);
 });
 
 test("barra do pedido some quando o formulário está na tela", async ({ page }) => {
