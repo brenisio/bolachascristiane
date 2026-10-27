@@ -37,7 +37,6 @@ FOTOS = [
     ("integral-aveia-mel", "posts/2026-04-27_DXouPwsjXK3_01.jpg", (0.05, 0.38, 0.95, 0.92)),
     ("integral-sabores", "posts/2026-06-02_DZFZQdiRHje_01.jpg", (0.0, 0.62, 1.0, 1.0)),
     ("natal-catalogo", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.0, 0.0, 1.0, 1.0)),
-    ("fundadores-casamento", "posts/2026-01-10_DTVGZxOEUNR_01.jpg", (0.0, 0.0, 1.0, 1.0)),
 ]
 
 
@@ -58,7 +57,7 @@ def corta_43(im, caixa):
 
 for nome, origem, caixa in FOTOS:
     im = Image.open(REF / origem).convert("RGB")
-    if nome.startswith(("fundadores", "natal-catalogo")):
+    if nome.startswith("natal-catalogo"):
         im.thumbnail((1000, 1000))
     else:
         im = corta_43(im, caixa).resize((800, 600), Image.LANCZOS)
