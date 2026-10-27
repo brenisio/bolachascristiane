@@ -28,4 +28,4 @@ A rota da semana (bairros por dia) é um exemplo e está em `docs/dados.js`.
 
 ## Direitos
 
-© 2026 brenisio. Todos os direitos reservados (ver `LICENSE`). O site tem marca d'água "DEMONSTRAÇÃO · brenisio" enquanto `DEMO` for demo; para tirar, apague o `<div class="marca-dagua">` do `index.html`.
+© 2026 Sayão Studio. Todos os direitos reservados (ver `LICENSE`). O site tem marca d'água "DEMONSTRAÇÃO · Sayão Studio" enquanto `DEMO` for demo; para tirar, apague o `<div class="marca-dagua">` do `index.html`.
