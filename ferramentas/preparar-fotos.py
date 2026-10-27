@@ -64,5 +64,22 @@ for nome, origem, caixa in FOTOS:
     im = corta_43(im, caixa).resize((800, 600), Image.LANCZOS)
     im.save(OUT / f"{nome}.webp", quality=80)
 
+# Destaque "Clientes": fotos de bolacha "na vida real". O recorte tira o @ de
+# quem postou. A das lembrancinhas de bodas ficou de fora: o rótulo traz o nome do casal.
+CLIENTES = [
+    ("cliente-loja", "destaques/clientes/05.jpg", (0.10, 0.17, 0.89, 0.89)),
+    ("cliente-recepcao", "destaques/clientes/09.jpg", (0.10, 0.17, 0.89, 0.70)),
+    ("cliente-empresa", "destaques/clientes/11.jpg", (0.02, 0.0, 0.98, 0.39)),
+]
+for nome, origem, (x0, y0, x1, y1) in CLIENTES:
+    im = Image.open(REF / origem).convert("RGB")
+    w, h = im.size
+    im = im.crop((int(x0 * w), int(y0 * h), int(x1 * w), int(y1 * h)))
+    w, h = im.size
+    nw = min(w, int(h * 4 / 5))  # retrato 4:5, centralizado
+    nh = int(nw * 5 / 4)
+    im = im.crop(((w - nw) // 2, (h - nh) // 2, (w - nw) // 2 + nw, (h - nh) // 2 + nh))
+    im.resize((480, 600), Image.LANCZOS).save(OUT / f"{nome}.webp", quality=80)
+
 Image.open(REF / "antigas/img01.jpg").convert("RGB").save(OUT / "logo.webp", quality=90)
-print(len(FOTOS) + 1, "imagens em", OUT)
+print(len(FOTOS) + len(CLIENTES) + 1, "imagens em", OUT)

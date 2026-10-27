@@ -251,3 +251,21 @@ test("SEO básico: título, descrição, idioma e noindex enquanto for demo", as
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   await expect(page.locator("h1")).toHaveCount(1);
 });
+
+test("Nossa história termina com a nota em memória do seu Nilmar", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#historia .memoria")).toHaveText("Em memória do seu Nilmar. “…amanhã começa tudo de novo.”");
+});
+
+test("seção de clientes tem fotos e recados, sem nome nem @ de cliente", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#clientes figure")).toHaveCount(3);
+  expect(await page.locator("#clientes .fala").count()).toBeGreaterThanOrEqual(3);
+  await expect(page.locator("#clientes")).not.toContainText("@");
+});
+
+test("marca usa 'desde 1979' e não fala mais em 35 anos", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".hero .lead")).toContainText("desde 1979");
+  await expect(page.locator("body")).not.toContainText("35 anos");
+});
