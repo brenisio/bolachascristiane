@@ -274,6 +274,10 @@ test("Nossa história termina com a nota em memória do seu Nilmar", async ({ pa
 test("seção de clientes tem fotos e recados, sem nome nem @ de cliente", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#clientes figure")).toHaveCount(3);
+  // fotos e o link de baixo abrem o destaque "Clientes" do Instagram em nova aba
+  const links = page.locator("#clientes a[href*='instagram.com/stories/highlights/']");
+  await expect(links).toHaveCount(4);
+  for (const a of await links.all()) await expect(a).toHaveAttribute("target", "_blank");
   expect(await page.locator("#clientes .fala").count()).toBeGreaterThanOrEqual(3);
   await expect(page.locator("#clientes")).not.toContainText("@");
 });

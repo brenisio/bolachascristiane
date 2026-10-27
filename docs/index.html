@@ -172,7 +172,12 @@ nav .btn .curto{display:none}
 /* clientes */
 .provas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
 .provas figure{margin:0;position:relative;border-radius:var(--raio);overflow:hidden;box-shadow:var(--sombra);background:var(--caramelo-claro)}
-.provas img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.provas a{display:block;color:inherit;text-decoration:none}
+.provas img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .35s}
+.provas a:hover img{transform:scale(1.04)}
+.provas figcaption span{color:var(--caramelo)}
+.ver-insta{text-align:center;margin-top:22px}
+.ver-insta a{color:var(--caramelo);font-weight:600}
 .provas figcaption{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,253,248,.94);border-radius:12px;padding:8px 12px;font-size:13.5px;font-weight:500}
 .falas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:16px}
 .fala{margin:0;background:var(--papel);border:1px solid var(--linha);border-radius:var(--raio);padding:20px 20px 16px;display:flex;flex-direction:column;gap:12px}
@@ -333,9 +338,9 @@ footer .fim{border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-t
     <h2 class="titulo-sec">Quem prova, volta</h2>
     <p class="sub-sec">Recados que chegam pelo Instagram e pelo WhatsApp, e fotos de onde as bolachas foram parar.</p>
     <div class="provas">
-      <figure><img src="img/cliente-loja.webp" alt="Pacote de bolachas numa prateleira de loja" loading="lazy" width="480" height="600"><figcaption>No café da tarde da loja</figcaption></figure>
-      <figure><img src="img/cliente-recepcao.webp" alt="Bolachas no cantinho do café de uma recepção" loading="lazy" width="480" height="600"><figcaption>No cantinho do café da recepção</figcaption></figure>
-      <figure><img src="img/cliente-empresa.webp" alt="Sacolas de pedido sobre uma mesa de escritório" loading="lazy" width="480" height="600"><figcaption>Pedido de empresa chegando</figcaption></figure>
+      <figure><a href="https://www.instagram.com/stories/highlights/18104832817783807/" target="_blank" rel="noopener" aria-label="No café da tarde da loja: ver nos stories de clientes do Instagram"><img src="img/cliente-loja.webp" alt="Pacote de bolachas numa prateleira de loja" loading="lazy" width="480" height="600"><figcaption>No café da tarde da loja <span aria-hidden="true">↗</span></figcaption></a></figure>
+      <figure><a href="https://www.instagram.com/stories/highlights/18104832817783807/" target="_blank" rel="noopener" aria-label="No cantinho do café da recepção: ver nos stories de clientes do Instagram"><img src="img/cliente-recepcao.webp" alt="Bolachas no cantinho do café de uma recepção" loading="lazy" width="480" height="600"><figcaption>No cantinho do café da recepção <span aria-hidden="true">↗</span></figcaption></a></figure>
+      <figure><a href="https://www.instagram.com/stories/highlights/18104832817783807/" target="_blank" rel="noopener" aria-label="Pedido de empresa chegando: ver nos stories de clientes do Instagram"><img src="img/cliente-empresa.webp" alt="Sacolas de pedido sobre uma mesa de escritório" loading="lazy" width="480" height="600"><figcaption>Pedido de empresa chegando <span aria-hidden="true">↗</span></figcaption></a></figure>
     </div>
     <div class="falas">
       <blockquote class="fala"><p>Que delícia essa bolacha integral! Vou querer sempre, até pra levar no serviço. Maravilhosa, parabéns!</p><footer>Cliente, pelo WhatsApp</footer></blockquote>
@@ -343,6 +348,7 @@ footer .fim{border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-t
       <blockquote class="fala"><p>Tudo perfeito, continuem assim! A gente ama quando tem novidades.</p><footer>Cliente, pelo WhatsApp</footer></blockquote>
       <blockquote class="fala"><p>Adorei a embalagem nova, parece ser super prática!</p><footer>Cliente, pelo Instagram</footer></blockquote>
     </div>
+    <p class="ver-insta"><a href="https://www.instagram.com/stories/highlights/18104832817783807/" target="_blank" rel="noopener">Ver mais fotos de clientes no Instagram ↗</a></p>
   </div>
 </section>
 
