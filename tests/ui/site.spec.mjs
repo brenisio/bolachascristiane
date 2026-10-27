@@ -252,6 +252,20 @@ test("SEO básico: título, descrição, idioma e noindex enquanto for demo", as
   await expect(page.locator("h1")).toHaveCount(1);
 });
 
+test("prévia do link (WhatsApp) tem título, descrição e imagem 1200×630 com URL absoluta", async ({ page, request }) => {
+  await page.goto("/");
+  const og = p => page.locator(`meta[property="og:${p}"]`).getAttribute("content");
+  expect(await og("title")).toMatch(/Bolachas Cristiane/);
+  expect((await og("description")).length).toBeGreaterThan(30);
+  const img = await og("image");
+  expect(img).toMatch(/^https:\/\/.+\.jpg$/);
+  // a mesma imagem servida localmente existe, é JPEG e cabe no limite do WhatsApp (~300 KB)
+  const resp = await request.get(new URL(img).pathname.replace(/^\/bolachascristiane\//, "/"));
+  expect(resp.ok()).toBe(true);
+  expect(resp.headers()["content-type"]).toBe("image/jpeg");
+  expect((await resp.body()).length).toBeLessThan(300 * 1024);
+});
+
 test("Nossa história termina com a nota em memória do seu Nilmar", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#historia .memoria")).toHaveText("Em memória do seu Nilmar. “…amanhã começa tudo de novo.”");
