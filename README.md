@@ -25,3 +25,7 @@ python3 -m http.server 8790 --directory docs
 
 O pedido não tem banco: o site monta a mensagem e abre o WhatsApp da Cristiane.
 A rota da semana (bairros por dia) é um exemplo e está em `docs/dados.js`.
+
+## Direitos
+
+© 2026 brenisio. Todos os direitos reservados (ver `LICENSE`). O site tem marca d'água "DEMONSTRAÇÃO · brenisio" enquanto `DEMO` for demo; para tirar, apague o `<div class="marca-dagua">` do `index.html`.

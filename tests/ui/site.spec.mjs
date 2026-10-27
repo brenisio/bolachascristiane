@@ -266,6 +266,17 @@ test("prévia do link (WhatsApp) tem título, descrição e imagem 1200×630 com
   expect((await resp.body()).length).toBeLessThan(300 * 1024);
 });
 
+test("marca d'água de demonstração cobre a tela sem bloquear clique e rodapé tem aviso de direitos", async ({ page }) => {
+  await page.goto("/");
+  const marca = page.locator(".marca-dagua");
+  await expect(marca).toHaveAttribute("aria-hidden", "true");
+  expect(await marca.evaluate(el => getComputedStyle(el).pointerEvents)).toBe("none");
+  await expect(page.locator("footer .fim")).toContainText("Proibida a reprodução");
+  // clicar através da marca d'água continua funcionando
+  await page.locator(".card").first().getByRole("button", { name: /^Pôr um/ }).click();
+  await expect(page.locator(".card").first().locator("output")).toHaveText("1");
+});
+
 test("Nossa história termina com a nota em memória do seu Nilmar", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#historia .memoria")).toHaveText("Em memória do seu Nilmar. “…amanhã começa tudo de novo.”");

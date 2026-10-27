@@ -1,4 +1,6 @@
 <!doctype html>
+<!-- © 2026 brenisio. Site de demonstração feito para a Bolachas Cristiane.
+     Todos os direitos reservados: proibida a reprodução sem autorização. -->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -63,6 +65,8 @@ section{padding:84px 0}
 .btn svg{width:18px;height:18px;flex:none}
 
 /* aviso de demonstração */
+.marca-dagua{position:fixed;inset:0;z-index:60;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='380' height='260'><text x='190' y='130' text-anchor='middle' transform='rotate(-24 190 130)' font-family='sans-serif' font-size='17' font-weight='700' letter-spacing='3' fill='%233a2416' fill-opacity='.075'>DEMONSTRAÇÃO · brenisio</text></svg>") repeat}
+@media print{.marca-dagua{position:absolute;min-height:100%}}
 .demo{background:var(--vermelho);color:#fff;font-size:13.5px;text-align:center;padding:8px 16px}
 .demo b{font-weight:600}
 
@@ -246,6 +250,7 @@ footer .fim{border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-t
   <symbol id="i-sacola" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
 </svg>
 
+<div class="marca-dagua" aria-hidden="true"></div>
 <div class="demo" role="note"><b>Site de demonstração.</b> Preços, pesos e rota são simulados e não são valores reais.</div>
 
 <header>
@@ -412,7 +417,7 @@ footer .fim{border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-t
         <span id="endereco"></span>
       </div>
     </div>
-    <div class="fim">Site de demonstração: preços, pesos e rota são simulados.</div>
+    <div class="fim">Site de demonstração: preços, pesos e rota são simulados.<br>© 2026 brenisio. Todos os direitos reservados. Proibida a reprodução, total ou parcial, do layout e do código sem autorização.</div>
   </div>
 </footer>
 
