@@ -5,9 +5,13 @@ import {
 
 const $ = s => document.querySelector(s);
 const CHAVE = "bolachas-carrinho";
+const CHAVE_NOME = "bolachas-nome";
 
 let carrinho = {};
 try { carrinho = JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch { carrinho = {}; }
+for (const id of Object.keys(carrinho)) {
+  if (!SABORES.some(s => s.id === id) || !(carrinho[id] > 0)) delete carrinho[id];
+}
 const salvar = () => { try { localStorage.setItem(CHAVE, JSON.stringify(carrinho)); } catch {} };
 
 const zap = texto => `https://wa.me/${WHATSAPP}${texto ? "?text=" + encodeURIComponent(texto) : ""}`;
@@ -54,22 +58,49 @@ function atualizaCard(id) {
   el.classList.toggle("tem", q > 0);
   el.querySelector("output").textContent = q;
   el.querySelector('[data-d="-1"]').disabled = !q;
+  el.querySelector('[data-d="1"]').disabled = q >= MAX;
+}
+
+function filtrar(cat) {
+  filtro = cat;
+  desenhaFiltros(); desenhaGrade();
 }
 
 $("#filtros").addEventListener("click", e => {
   const b = e.target.closest("[data-cat]");
-  if (!b) return;
-  filtro = b.dataset.cat;
-  desenhaFiltros(); desenhaGrade();
+  if (b) filtrar(b.dataset.cat);
 });
+
+// Atalhos (ex.: a faixa de Natal no topo) que abrem o cardápio já filtrado.
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-ir-cat]");
+  if (a) filtrar(a.dataset.irCat);
+});
+
+const MAX = 50;
+function muda(id, delta) {
+  const q = Math.max(0, Math.min(MAX, (carrinho[id] || 0) + delta));
+  if (q) carrinho[id] = q; else delete carrinho[id];
+  salvar(); atualizaCard(id); atualizaTotais();
+  const s = SABORES.find(x => x.id === id);
+  $("#aviso").textContent = q ? `${q}× ${s.nome} no pedido` : `${s.nome} saiu do pedido`;
+}
 
 $("#grade").addEventListener("click", e => {
   const b = e.target.closest("[data-d]");
-  if (!b) return;
-  const id = b.closest(".card").dataset.id;
-  const q = Math.max(0, Math.min(50, (carrinho[id] || 0) + Number(b.dataset.d)));
-  if (q) carrinho[id] = q; else delete carrinho[id];
-  salvar(); atualizaCard(id); atualizaTotais();
+  if (b) muda(b.closest(".card").dataset.id, Number(b.dataset.d));
+});
+
+$("#resumo").addEventListener("click", e => {
+  const b = e.target.closest("[data-d]");
+  if (b) muda(b.closest("[data-id]").dataset.id, Number(b.dataset.d));
+});
+
+$("#limpar").addEventListener("click", () => {
+  const ids = Object.keys(carrinho);
+  carrinho = {};
+  salvar(); ids.forEach(atualizaCard); atualizaTotais();
+  $("#aviso").textContent = "Pedido limpo";
 });
 
 /* ---------- totais, barra e resumo ---------- */
@@ -80,8 +111,15 @@ function atualizaTotais() {
   $("#barraItens").textContent = pac;
   $("#barra").classList.toggle("ver", t.itens > 0);
   $("#totalValor").textContent = brl(t.valor);
-  const linhas = SABORES.filter(s => carrinho[s.id]).map(s =>
-    `<li><span>${carrinho[s.id]}× ${s.nome} <small>(${s.peso} g)</small></span><span>${brl(carrinho[s.id] * s.preco)}</span></li>`);
+  const linhas = SABORES.filter(s => carrinho[s.id]).map(s => `<li data-id="${s.id}">
+      <span class="item">${s.nome} <small>(${s.peso} g)</small></span>
+      <span class="qtd">
+        <button type="button" data-d="-1" aria-label="Tirar um ${s.nome}">−</button>
+        <output>${carrinho[s.id]}</output>
+        <button type="button" data-d="1" aria-label="Pôr um ${s.nome}" ${carrinho[s.id] >= MAX ? "disabled" : ""}>+</button>
+      </span>
+      <span class="val">${brl(carrinho[s.id] * s.preco)}</span></li>`);
+  $("#limpar").hidden = !linhas.length;
   $("#resumo").innerHTML = linhas.length ? linhas.join("")
     : `<li class="vazio">Nenhum pacote ainda. <a href="#cardapio">&nbsp;Escolha no cardápio</a></li>`;
 }
@@ -120,6 +158,7 @@ $("#form").addEventListener("submit", e => {
     carrinho, nome: $("#nome").value.trim(), quando: $("#quando").value,
     bairro: $("#bairro").value.trim(), obs: $("#obs").value.trim()
   });
+  try { localStorage.setItem(CHAVE_NOME, $("#nome").value.trim()); } catch {}
   window.open(zap(msg), "_blank", "noopener");
 });
 
@@ -132,5 +171,7 @@ $("#insta").textContent = `@${INSTAGRAM}`;
 $("#endereco").textContent = ENDERECO;
 $("[data-preco-min]").textContent = brl(Math.min(...SABORES.map(s => s.preco)));
 $("[data-n-sabores]").textContent = SABORES.length;
+
+try { $("#nome").value = localStorage.getItem(CHAVE_NOME) || ""; } catch {}
 
 desenhaFiltros(); desenhaGrade(); desenhaRota(); atualizaTotais();

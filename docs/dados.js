@@ -7,6 +7,7 @@ export const ENDERECO = "Rua Vereador Pedro Medeiros, 456 · Serraria, São Jos�
 
 // Categorias na ordem em que aparecem no cardápio.
 export const CATEGORIAS = [
+  { id: "natal",        nome: "Natal", temporada: true },
   { id: "tradicionais", nome: "Tradicionais" },
   { id: "recheadas",    nome: "Recheadas" },
   { id: "integrais",    nome: "Integrais" },
@@ -15,7 +16,20 @@ export const CATEGORIAS = [
 
 // preco em reais, peso em gramas (valores simulados).
 const T = { cat: "tradicionais", preco: 8, peso: 250 };
+const N = { cat: "natal", preco: 12, peso: 250, selo: "Natal" };
 export const SABORES = [
+  // Catálogo de Natal (temporada). Ingredientes dos de Natal vêm do cartão "Natal".
+  { ...N, id: "natal-fino", nome: "Natal tradicional fino", tipo: "Fininha, com glacê e confeitos",
+    ing: "Trigo, margarina, ovos, açúcar, açúcar baunilha e bicarbonato de amônia. Cobertura de glacê com confeitos." },
+  { ...N, id: "natal-bola", nome: "Natal tradicional bola", tipo: "Gordinha, com glacê e confeitos",
+    ing: "Trigo, margarina, ovos, açúcar, açúcar baunilha e bicarbonato de amônia. Cobertura de glacê com confeitos." },
+  { ...N, id: "natal-melado", nome: "Natal de melado, cravo e canela", tipo: "Especiada, com e sem glacê",
+    ing: "Massa de melado com cravo e canela. Parte vai com glacê e confeitos." },
+  { ...N, id: "natal-pinheiro", nome: "Natal pinheiro", tipo: "Em formato de pinheirinho", preco: 14,
+    ing: "Trigo, margarina, ovos, açúcar, açúcar baunilha e bicarbonato de amônia. Cobertura de glacê com confeitos." },
+  { ...T, id: "natal", nome: "Natal clássica", tipo: "Amanteigada e crocante", cat: "natal", selo: "Natal",
+    ing: "Trigo, margarina, ovos, açúcar, açúcar baunilha e bicarbonato de amônia." },
+
   { ...T, id: "broa-de-leite", nome: "Broa de leite", tipo: "Leve, macia e derrete na boca",
     ing: "Trigo, açúcar, maisena, margarina, leite em pó, ovos, bicarbonato e baunilha." },
   { ...T, id: "rosca-de-leite", nome: "Rosca de leite", tipo: "Amanteigada e crocante",
@@ -38,8 +52,6 @@ export const SABORES = [
     ing: "Trigo, fubá, margarina, açúcar, ovos, bicarbonato, açúcar baunilha e corante amarelo." },
   { ...T, id: "amendoim", nome: "Amendoim", tipo: "Amanteigada e crocante",
     ing: "Trigo, margarina, açúcar, amendoim torrado, maisena, ovos, sal amoníaco e baunilha." },
-  { ...T, id: "natal", nome: "Natal", tipo: "Amanteigada e crocante",
-    ing: "Trigo, margarina, ovos, açúcar, açúcar baunilha e bicarbonato de amônia." },
   { ...T, id: "palito-de-queijo", nome: "Palito de queijo", tipo: "Salgado e crocante", preco: 9,
     ing: "Trigo, margarina, ovos, queijo parmesão, leite, bicarbonato, sal, corante amarelo e aroma de queijo." },
 

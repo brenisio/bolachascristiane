@@ -36,7 +36,11 @@ FOTOS = [
     ("integral-passas", "posts/2026-04-27_DXoamChDjHS_01.jpg", (0.5, 0.40, 1.0, 0.78)),
     ("integral-aveia-mel", "posts/2026-04-27_DXouPwsjXK3_01.jpg", (0.05, 0.38, 0.95, 0.92)),
     ("integral-sabores", "posts/2026-06-02_DZFZQdiRHje_01.jpg", (0.0, 0.62, 1.0, 1.0)),
-    ("natal-catalogo", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.0, 0.0, 1.0, 1.0)),
+    # Catálogo de Natal: um post com 4 fotos em grade 2×2 (o recorte deixa o rótulo de fora)
+    ("natal-fino", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.02, 0.112, 0.49, 0.44)),
+    ("natal-bola", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.51, 0.112, 0.98, 0.44)),
+    ("natal-melado", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.02, 0.545, 0.49, 0.87)),
+    ("natal-pinheiro", "posts/2026-10-17_DemkCkhP2jQ_01.jpg", (0.51, 0.545, 0.98, 0.87)),
 ]
 
 
@@ -57,10 +61,7 @@ def corta_43(im, caixa):
 
 for nome, origem, caixa in FOTOS:
     im = Image.open(REF / origem).convert("RGB")
-    if nome.startswith("natal-catalogo"):
-        im.thumbnail((1000, 1000))
-    else:
-        im = corta_43(im, caixa).resize((800, 600), Image.LANCZOS)
+    im = corta_43(im, caixa).resize((800, 600), Image.LANCZOS)
     im.save(OUT / f"{nome}.webp", quality=80)
 
 Image.open(REF / "antigas/img01.jpg").convert("RGB").save(OUT / "logo.webp", quality=90)
